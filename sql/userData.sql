@@ -51,7 +51,7 @@ DELIMITER //
 DROP PROCEDURE IF EXISTS spUpdateTbUserdata;
 CREATE PROCEDURE spUpdateTbUserdata(    
     IN inId integer,      
-    IN inToken VARCHAR(50),     
+    IN inToken CHAR(64),     
     IN inFirstName VARCHAR(50),     
     IN inLastName VARCHAR(50),
     IN inUsername VARCHAR(50),     
