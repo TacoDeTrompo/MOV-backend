@@ -69,3 +69,18 @@ BEGIN
 END //
 
 DELIMITER ;
+
+DELIMITER //
+DROP PROCEDURE IF EXISTS spUpdatePassword;
+CREATE PROCEDURE spUpdatePassword(    
+    IN inId integer,      
+    IN inToken VARCHAR(50),     
+    IN inNewPassword VARCHAR(50),
+) 
+BEGIN    
+	UPDATE tbUserdata
+	SET `password` = inNewPassword
+	WHERE `id` = inId and `token` = inToken;
+END //
+
+DELIMITER ;

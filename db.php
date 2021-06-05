@@ -167,3 +167,26 @@ function updateUserData($data){
         die();
     }
 }
+
+function updateUserData($data){
+    try{
+        $MyConnection = connect();
+
+        $SQL = "CALL spUpdatePassword( '"
+                .$MyConnection->real_escape_string($data->userId)."', '"
+                .$MyConnection->real_escape_string($data->token)."', '"
+                .$MyConnection->real_escape_string($data->newPassword)."' )";
+
+        if ( ($result = $MyConnection->query($SQL))===false )
+        {
+            printf("Invalid query: %s \n Whole query: %s \n ", $MyConnection->error, $SQL);
+            exit();
+        }
+        
+        $MyConnection->close();
+    }
+    catch (PDOException $e) {
+        echo "Error!: " . $e->getMessage();
+        die();
+    }
+}
