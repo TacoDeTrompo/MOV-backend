@@ -6,7 +6,7 @@
   "lastName": "",
   "username": "",
   "email": "",
-  "imgArray": [],
+  "encodedImage": "",
   "cloudId": 0
 }
 */

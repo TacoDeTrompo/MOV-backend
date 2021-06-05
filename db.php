@@ -77,7 +77,7 @@ function login($data){
             exit();
         }
 
-        $obj = {};
+        $obj = new stdClass();
 
         while ($row = mysqli_fetch_assoc($result)) {
             $obj->{"token"} = $row["token"];
@@ -85,7 +85,7 @@ function login($data){
             $obj->{"lastName"} = $row["lastname"];
             $obj->{"username"} = $row["username"];
             $obj->{"email"} = $row["email"];
-            $obj->{"imgArray"} = $row["encodedImage"];
+            $obj->{"encodedImage"} = $row["encodedImage"];
             $obj->{"cloudId"} = $row["id"];
         }
         mysqli_free_result($result);
@@ -110,7 +110,7 @@ function signup($data){
                 .$MyConnection->real_escape_string($data->username)."', '"
                 .$MyConnection->real_escape_string($data->token)."', '"
                 .$MyConnection->real_escape_string($data->email)."', '"
-                .$MyConnection->real_escape_string($data->imgArray)."' )";
+                .$MyConnection->real_escape_string($data->encodedImage)."' )";
 
         if ( ($result = $MyConnection->query($SQL))===false )
         {
@@ -118,7 +118,7 @@ function signup($data){
             exit();
         }
 
-        $obj = {};
+        $obj = new stdClass();
 
         while ($row = mysqli_fetch_assoc($result)) {
             $obj->{"token"} = $row["token"];
@@ -126,7 +126,7 @@ function signup($data){
             $obj->{"lastName"} = $row["lastname"];
             $obj->{"username"} = $row["username"];
             $obj->{"email"} = $row["email"];
-            $obj->{"imgArray"} = $row["encodedImage"];
+            $obj->{"encodedImage"} = $row["encodedImage"];
             $obj->{"cloudId"} = $row["id"];
         }
         mysqli_free_result($result);
@@ -152,7 +152,7 @@ function updateUserData($data){
                 .$MyConnection->real_escape_string($data->lastName)."', '"
                 .$MyConnection->real_escape_string($data->username)."', '"
                 .$MyConnection->real_escape_string($data->email)."', '"
-                .$MyConnection->real_escape_string($data->imgArray)."' )";
+                .$MyConnection->real_escape_string($data->encodedImage)."' )";
 
         if ( ($result = $MyConnection->query($SQL))===false )
         {
