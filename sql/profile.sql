@@ -11,11 +11,11 @@
 }
 */
 --                                                                      sql         | endpoint
--- get profile                                                          done        | not done
--- get profiles by user                                                 done        | not done
--- insert profile                                                       done (mike) | not done
--- update profile                                                       done        | not done
--- delete profile                                                       done        | not done
+-- get profile                                                          done        | done
+-- get profiles by user                                                 done        | done
+-- insert profile                                                       done (mike) | done
+-- update profile                                                       done        | done 
+-- delete profile                                                       done        | done
 
 -- SET FOREIGN_KEY_CHECKS = 0;
 

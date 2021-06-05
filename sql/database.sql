@@ -241,7 +241,7 @@ DELIMITER ;
 -- CALL spInsertExpensetype('SERVICES', 2);
 -- CALL spInsertExpensetype('INVESTMENT', 3);
 
--- CALL spInsertTbUserdata ('Miguel', 'Dias', 'Jeffs', 'admin', 'admin@admin.com', 'picture');
+-- CALL spInsertTbUserdata ('dias', 'Dias', 'ej', 'admin', 'admin@admin.com', 'picture');
 
 -- CALL spInsertTbProfile('ProfileName', 'ProfileDescription', 7, '#000000', 1);
 
