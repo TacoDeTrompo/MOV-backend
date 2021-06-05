@@ -69,7 +69,7 @@ function login($data){
 
         $SQL = "CALL spLogin( '"
                 .$MyConnection->real_escape_string($data->email)."', '"
-                .$MyConnection->real_escape_string($data->token)."' )";
+                .$MyConnection->real_escape_string($data->password)."' )";
 
         if ( ($result = $MyConnection->query($SQL))===false )
         {
