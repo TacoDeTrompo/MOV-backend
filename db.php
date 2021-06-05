@@ -168,7 +168,7 @@ function updateUserData($data){
     }
 }
 
-function updateUserData($data){
+function updatePassword($data){
     try{
         $MyConnection = connect();
 
