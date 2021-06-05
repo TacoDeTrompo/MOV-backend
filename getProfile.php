@@ -1,5 +1,6 @@
 <?php
 include 'database/db.php';
 
-getProfile(htmlspecialchars($_POST["id"]));
-?>
+$json = file_get_contents('php://input');
+$data = json_decode($json);
+getProfile($data);

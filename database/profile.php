@@ -2,65 +2,63 @@
 
 include_once 'db.php';
 
-function profileInsert($data){
-    try{
+function profileInsert($data)
+{
+    try {
         $MyConnection = connect();
 
         $SQL = "CALL spInsertTbProfile( '"
-                .$MyConnection->real_escape_string($data->profileName)."', '"
-                .$MyConnection->real_escape_string($data->description)."', '"
-                .$MyConnection->real_escape_string($data->dayRange)."', '"
-                .$MyConnection->real_escape_string($data->color)."', '"
-                .$MyConnection->real_escape_string($data->userId)."' )";
+            . $MyConnection->real_escape_string($data->profileName) . "', '"
+            . $MyConnection->real_escape_string($data->description) . "', '"
+            . $MyConnection->real_escape_string($data->dayRange) . "', '"
+            . $MyConnection->real_escape_string($data->color) . "', '"
+            . $MyConnection->real_escape_string($data->userId) . "' )";
 
-        if ( ($result = $MyConnection->query($SQL))===false )
-        {
+        if (($result = $MyConnection->query($SQL)) === false) {
             printf("Invalid query: %s \n Whole query: %s \n ", $MyConnection->error, $SQL);
             exit();
         }
-        
+
         $MyConnection->close();
-    }
-    catch (PDOException $e) {
+    } catch (PDOException $e) {
         echo "Error!: " . $e->getMessage();
         die();
     }
 }
 
-function updateProfile($data){
-    try{
+function updateProfile($data)
+{
+    try {
         $MyConnection = connect();
 
         $SQL = "CALL spUpdateTbProfile( '"
-                .$MyConnection->real_escape_string($data->idBD)."', '"
-                .$MyConnection->real_escape_string($data->userId)."', '"
-                .$MyConnection->real_escape_string($data->profileName)."', '"
-                .$MyConnection->real_escape_string($data->description)."', '"
-                .$MyConnection->real_escape_string($data->dayRange)."', '"
-                .$MyConnection->real_escape_string($data->color)."' )";
+            . $MyConnection->real_escape_string($data->idBD) . "', '"
+            . $MyConnection->real_escape_string($data->userId) . "', '"
+            . $MyConnection->real_escape_string($data->profileName) . "', '"
+            . $MyConnection->real_escape_string($data->description) . "', '"
+            . $MyConnection->real_escape_string($data->dayRange) . "', '"
+            . $MyConnection->real_escape_string($data->color) . "' )";
 
-        if ( ($result = $MyConnection->query($SQL))===false )
-        {
+        if (($result = $MyConnection->query($SQL)) === false) {
             printf("Invalid query: %s \n Whole query: %s \n ", $MyConnection->error, $SQL);
             exit();
         }
-        
+
         $MyConnection->close();
-    }
-    catch (PDOException $e) {
+    } catch (PDOException $e) {
         echo "Error!: " . $e->getMessage();
         die();
     }
 }
 
-function getProfiles($data){
-    try{
+function getProfiles($data)
+{
+    try {
         $MyConnection = connect();
 
-        $SQL = "CALL spGetProfiles(".$MyConnection->real_escape_string($data->cloudId).")";
+        $SQL = "CALL spGetProfiles(" . $MyConnection->real_escape_string($data->cloudId) . ")";
 
-        if ( ($result = $MyConnection->query($SQL))===false )
-        {
+        if (($result = $MyConnection->query($SQL)) === false) {
             printf("Invalid query: %s \n Whole query: %s \n ", $MyConnection->error, $SQL);
             exit();
         }
@@ -69,9 +67,9 @@ function getProfiles($data){
 
         while ($row = mysqli_fetch_assoc($result)) {
             array_push($arr, array(
-                'idBD' => $row["id"], 
-                'profileName' => $row["name"], 
-                'description' => $row["description"], 
+                'idBD' => $row["id"],
+                'profileName' => $row["name"],
+                'description' => $row["description"],
                 'dayRange' => $row["dayrange"],
                 'startDate' => $row["startday"],
                 'color' => $row["color"],
@@ -79,27 +77,26 @@ function getProfiles($data){
             ));
         }
         mysqli_free_result($result);
-        
-        
+
+
         echo json_encode($arr);
-        
+
         $MyConnection->close();
-    }
-    catch (PDOException $e) {
+    } catch (PDOException $e) {
         echo "Error!: " . $e->getMessage();
         die();
     }
 }
 
-function getProfile($data){
-    try{
+function getProfile($data)
+{
+    try {
         $MyConnection = connect();
 
         $SQL = "CALL spGetProfile( '"
-                .$MyConnection->real_escape_string($data)."' )";
+            . $MyConnection->real_escape_string($data->idBD) . "' )";
 
-        if ( ($result = $MyConnection->query($SQL))===false )
-        {
+        if (($result = $MyConnection->query($SQL)) === false) {
             printf("Invalid query: %s \n Whole query: %s \n ", $MyConnection->error, $SQL);
             exit();
         }
@@ -116,12 +113,31 @@ function getProfile($data){
             $obj->{'userId'} = $row["iduserdata"];
         }
         mysqli_free_result($result);
-        
+
         echo json_encode($obj);
-        
+
         $MyConnection->close();
+    } catch (PDOException $e) {
+        echo "Error!: " . $e->getMessage();
+        die();
     }
-    catch (PDOException $e) {
+}
+
+function deleteProfile($data)
+{
+    try {
+        $MyConnection = connect();
+
+        $SQL = "CALL spDeleteTbProfile( '"
+            . $MyConnection->real_escape_string($data->idBD) . "' )";
+
+        if (($result = $MyConnection->query($SQL)) === false) {
+            printf("Invalid query: %s \n Whole query: %s \n ", $MyConnection->error, $SQL);
+            exit();
+        }
+
+        $MyConnection->close();
+    } catch (PDOException $e) {
         echo "Error!: " . $e->getMessage();
         die();
     }

@@ -86,7 +86,7 @@ CREATE PROCEDURE spDeleteTbProfile(
 ) 
 BEGIN    
 	DELETE FROM tbProfile
-	WHERE `id` = inId and `iduserdata` = inUserId;
+	WHERE `id` = inId;
 END //
 
 DELIMITER ;
