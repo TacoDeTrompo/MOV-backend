@@ -1,6 +1,8 @@
 -- remember to run de file using root, password adminadmin
 -- sudo mysql -u root -p MOVdb  < database.sql
 --
+-- SET GLOBAL max_allowed_packet=1073741824;
+--
 SET FOREIGN_KEY_CHECKS = 0;
 
 DROP TABLE IF EXISTS tbExpensetype;
@@ -19,7 +21,7 @@ create table tbUserdata(
     `password` VARCHAR(50),
     `email` VARCHAR(50),
     `token` char(64),
-    `picture` blob
+    `encodedImage` MEDIUMBLOB
 );
 
 DROP TABLE IF EXISTS tbProfile;
@@ -39,7 +41,7 @@ create table tbAdvice(
     `id` int AUTO_INCREMENT PRIMARY KEY,
     `title` VARCHAR(50),
     `description` VARCHAR(250),
-    `picture` blob
+    `encodedImage` MEDIUMBLOB
 );
 
 DROP TABLE IF EXISTS tbTransaction;
@@ -95,10 +97,10 @@ CREATE PROCEDURE spInsertTbUserdata(
     IN inUsername VARCHAR(50),     
     IN inPassword VARCHAR(50),     
     IN inEmail VARCHAR(50),  
-    IN inPicture blob
+    IN inEncodedImage MEDIUMBLOB
 )
 BEGIN    
-    insert into tbUserdata (`firstname`,`lastname`,`username`,`password`,`email`,`token`,`picture`) values (`inFirstName`, `inLastName`, `inUsername`, `inPassword`, `inEmail`, SHA2(CONCAT(`inFirstName`,`inPassword`), 224), `inPicture`);
+    insert into tbUserdata (`firstname`,`lastname`,`username`,`password`,`email`,`token`,`encodedImage`) values (`inFirstName`, `inLastName`, `inUsername`, `inPassword`, `inEmail`, SHA2(CONCAT(`inFirstName`,`inPassword`), 224), `inEncodedImage`);
 END //
 
 DELIMITER ;
@@ -108,10 +110,10 @@ DROP PROCEDURE IF EXISTS spInsertTbAdvice;
 CREATE PROCEDURE spInsertTbAdvice(     
     IN inTitle VARCHAR(50),     
     IN inDescription VARCHAR(250),   
-    IN inPicture blob
+    IN inEncodedImage MEDIUMBLOB
 ) 
 BEGIN    
-    insert into tbAdvice (`title`,`description`,`picture`) values (inTitle,inDescription,inPicture);
+    insert into tbAdvice (`title`,`description`,`encodedImage`) values (inTitle,inDescription,inEncodedImage);
 END //
 
 DELIMITER ;
@@ -166,7 +168,7 @@ CREATE PROCEDURE spUpdateTbUserdata(
     IN inPassword VARCHAR(50),     
     IN inEmail VARCHAR(50),
     IN inToken VARCHAR(50),     
-    IN inPicture blob 
+    IN inEncodedImage blob 
 ) 
 BEGIN    
 	UPDATE tbUserdata
@@ -176,7 +178,7 @@ BEGIN
 		`password` = inPassword,
 		`email` = inEmail,
 		`token` = inToken,
-		`picture` = inPicture
+		`encodedImage` = inEncodedImage
 	WHERE `id` = inId;
 END //
 
@@ -188,13 +190,13 @@ CREATE PROCEDURE spUpdateTbAdvice(
     IN inId integer,
     IN inTitle VARCHAR(50),
     IN inDescription VARCHAR(250),
-    IN inPicture blob
+    IN inEncodedImage MEDIUMBLOB
 )
 BEGIN    
 	UPDATE tbAdvice
 	SET `title` = inTitle,
 		`description` = inDescription,
-		`picture` = inPicture
+		`encodedImage` = inEncodedImage
 	WHERE `id` = inId;
 END //
 
@@ -220,6 +222,16 @@ BEGIN
 		`idexpensetype` = inIdexpensetype,
 		`idprofile` = inIdprofile 
 	WHERE `id` = inId;
+END //
+
+DELIMITER ;
+
+DELIMITER //
+
+DROP PROCEDURE IF EXISTS spGetAllAdvices;
+CREATE PROCEDURE spGetAllAdvices()
+BEGIN    
+	select * from tbAdvice;
 END //
 
 DELIMITER ;
