@@ -50,7 +50,7 @@ DELIMITER //
 DROP PROCEDURE IF EXISTS spGetProfiles;
 CREATE PROCEDURE spGetProfiles(IN inId integer)
 BEGIN    
-	select * from tbProfile where 'iduserdata' = inId;
+	select * from tbProfile where `iduserdata` = inId;
 END //
 
 DELIMITER ;
@@ -87,6 +87,21 @@ CREATE PROCEDURE spDeleteTbProfile(
 BEGIN    
 	DELETE FROM tbProfile
 	WHERE `id` = inId and `iduserdata` = inUserId;
+END //
+
+DELIMITER ;
+
+DELIMITER //
+DROP PROCEDURE IF EXISTS spInsertTbProfile;
+CREATE PROCEDURE spInsertTbProfile(     
+    IN inName VARCHAR(50),     
+    IN inDescription VARCHAR(250),
+    IN inDayrange integer,      
+    IN inColor VARCHAR(50),
+    IN inIduserdata integer
+) 
+BEGIN    
+    insert into tbProfile (`name`, `description`, `dayrange`, `startday`, `color`, `iduserdata`) values (inName, inDescription, inDayrange, CURDATE(), inColor, inIduserdata);
 END //
 
 DELIMITER ;

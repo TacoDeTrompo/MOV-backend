@@ -84,7 +84,7 @@ CREATE PROCEDURE spInsertTbProfile(
     IN inIduserdata integer
 ) 
 BEGIN    
-    insert into tbProfile (`name`, `description`, `dayrange`, `startday`, `color`, `iduserdata`) values (inName, inDescription, inDayrange, now(), inColor, inIduserdata);
+    insert into tbProfile (`name`, `description`, `dayrange`, `startday`, `color`, `iduserdata`) values (inName, inDescription, inDayrange, CURDATE(), inColor, inIduserdata);
 END //
 
 DELIMITER ;

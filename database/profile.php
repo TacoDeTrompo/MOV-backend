@@ -57,7 +57,7 @@ function getProfiles($data){
     try{
         $MyConnection = connect();
 
-        $SQL = "CALL spGetProfiles(".$MyConnection->real_escape_string($data).")";
+        $SQL = "CALL spGetProfiles(".$MyConnection->real_escape_string($data->cloudId).")";
 
         if ( ($result = $MyConnection->query($SQL))===false )
         {
@@ -70,10 +70,10 @@ function getProfiles($data){
         while ($row = mysqli_fetch_assoc($result)) {
             array_push($arr, array(
                 'idBD' => $row["id"], 
-                'profileName' => $row["title"], 
+                'profileName' => $row["name"], 
                 'description' => $row["description"], 
                 'dayRange' => $row["dayrange"],
-                'startDate' => $row["startdate"],
+                'startDate' => $row["startday"],
                 'color' => $row["color"],
                 'userId' => $row["iduserdata"],
             ));
@@ -96,7 +96,7 @@ function getProfile($data){
         $MyConnection = connect();
 
         $SQL = "CALL spGetProfile( '"
-                .$MyConnection->real_escape_string($data->inId)."' )";
+                .$MyConnection->real_escape_string($data)."' )";
 
         if ( ($result = $MyConnection->query($SQL))===false )
         {
@@ -108,10 +108,10 @@ function getProfile($data){
 
         while ($row = mysqli_fetch_assoc($result)) {
             $obj->{'idBD'} = $row["id"];
-            $obj->{'profileName'} = $row["title"];
+            $obj->{'profileName'} = $row["name"];
             $obj->{'description'} = $row["description"];
             $obj->{'dayRange'} = $row["dayrange"];
-            $obj->{'startDate'} = $row["startdate"];
+            $obj->{'startDate'} = $row["startday"];
             $obj->{'color'} = $row["color"];
             $obj->{'userId'} = $row["iduserdata"];
         }
