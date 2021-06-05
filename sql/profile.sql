@@ -81,8 +81,7 @@ DELIMITER //
 
 DROP PROCEDURE IF EXISTS spDeleteTbProfile;
 CREATE PROCEDURE spDeleteTbProfile(   
-    IN inId integer,
-    IN inUserId integer
+    IN inId integer
 ) 
 BEGIN    
 	DELETE FROM tbProfile
