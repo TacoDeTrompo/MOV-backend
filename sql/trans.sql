@@ -3,10 +3,11 @@
 Transaction
 {
   "idBD": 0,
+  "amount":0,
   "name": "",
   "ttype": 0,
   "color": "",
-  "profileId": 0,
+  "profileId": 3,
   "description": "",
   "expenseType": 0
 }
@@ -15,11 +16,12 @@ Transaction
 Expense
 {
   "idBD": 0,
+  "amount":0,
   "name": "",
   "ttype": 0,
   "color": "",
-  "profileId": 0,
-  "description: "",
+  "profileId": 3,
+  "description": "",
   "expenseType": 0
 }
 
@@ -27,22 +29,23 @@ Expense
 Ingress
 {
   "idBD": 0,
+  "amount":0,
   "name": "",
   "ttype": 0,
   "color": "",
-  "profileId": 0,
-  "description: ""
+  "profileId": 3,
+  "description": ""
 }
 */
 
 --                                                                          sql     | endpoint
--- insert                                                                   Y       | N
--- get expense and get ingress (id trans)                                   Y       | N
--- get expenses by (idProfile)                                              Y       | N
--- get ingresses by (idProfile)                                             Y       | N
+-- insert                                                                   Y       | Y
+-- get expense and get ingress (id trans)                                   Y       | Y
+-- get expenses by (idProfile)                                              Y       | Y
+-- get ingresses by (idProfile)                                             Y       | Y
 -- if it is an ingress, expensetype is null                                 
--- update                                                                   Y       | N
--- delete                                                                   Y       | N
+-- update                                                                   Y       | Y
+-- delete                                                                   Y       | Y
 
 -- SET FOREIGN_KEY_CHECKS = 0;
 -- DROP TABLE IF EXISTS tbExpensetype;
@@ -102,7 +105,7 @@ CREATE PROCEDURE spDeleteTbTransaction(
     IN inId integer
 ) 
 BEGIN    
-	DELETE FROM TbTransaction
+	DELETE FROM tbTransaction
 	WHERE `id` = inId;
 END //
 
@@ -115,7 +118,7 @@ CREATE PROCEDURE spGetExpense(
     IN inId integer
 )
 BEGIN    
-	select * from TbTransaction where inId = `id` and `ttype` = 0;
+	select * from tbTransaction where inId = `id` and `ttype` = 0;
 END //
 
 DELIMITER ;
@@ -127,7 +130,7 @@ CREATE PROCEDURE spGetIngress(
     IN inId integer
 )
 BEGIN    
-	select * from TbTransaction where inId = `id` and `ttype` = 1;
+	select * from tbTransaction where inId = `id` and `ttype` = 1;
 END //
 
 DELIMITER ;
@@ -137,7 +140,7 @@ DELIMITER //
 DROP PROCEDURE IF EXISTS spGetExpenses;
 CREATE PROCEDURE spGetExpenses(IN inId integer)
 BEGIN    
-	select * from TbTransaction where `idprofile` = inId and `ttype` = 0;
+	select * from tbTransaction where `idprofile` = inId and `ttype` = 0;
 END //
 
 DELIMITER ;
@@ -147,7 +150,7 @@ DELIMITER //
 DROP PROCEDURE IF EXISTS spGetIngresses;
 CREATE PROCEDURE spGetIngresses(IN inId integer)
 BEGIN    
-	select * from TbTransaction where `idprofile` = inId and `ttype` = 1;
+	select * from tbTransaction where `idprofile` = inId and `ttype` = 1;
 END //
 
 DELIMITER ;

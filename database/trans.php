@@ -147,7 +147,7 @@ function getExpenses($data)
     try {
         $MyConnection = connect();
 
-        $SQL = "CALL spGetExpenses(" . $MyConnection->real_escape_string($data->cloudId) . ")";
+        $SQL = "CALL spGetExpenses(" . $MyConnection->real_escape_string($data->idBD) . ")";
 
         if (($result = $MyConnection->query($SQL)) === false) {
             printf("Invalid query: %s \n Whole query: %s \n ", $MyConnection->error, $SQL);
@@ -184,7 +184,7 @@ function getIngresses($data)
     try {
         $MyConnection = connect();
 
-        $SQL = "CALL spGetIngresses(" . $MyConnection->real_escape_string($data->cloudId) . ")";
+        $SQL = "CALL spGetIngresses(" . $MyConnection->real_escape_string($data->idBD) . ")";
 
         if (($result = $MyConnection->query($SQL)) === false) {
             printf("Invalid query: %s \n Whole query: %s \n ", $MyConnection->error, $SQL);
